@@ -1,49 +1,53 @@
-<?php
-
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $primaryKey = 'no_induk';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'name',
+        'no_induk',
+        'nama',
         'email',
         'password',
+        'no_hp',
+        'role'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
+    protected $hidden =
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    // DOSEN
+    public function pengajuanDosen()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Pengajuan::class, 'no_induk');
+    }
+
+    // ADMIN YANG DITUGASKAN
+    public function assignedPengajuan()
+    {
+        return $this->hasMany(Pengajuan::class, 'assigned_to');
+    }
+
+    // ADMIN PENANGGUNG JAWAB LAB
+    public function laboratorium()
+    {
+        return $this->hasOne(Laboratorium::class, 'admin_no_induk');
+    }
+
+    // ADMIN YANG INSTALL SOFTWARE
+    public function instalasi()
+    {
+        return $this->hasMany(Instalasi::class, 'installed_by');
     }
 }

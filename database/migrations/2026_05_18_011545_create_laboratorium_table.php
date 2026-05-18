@@ -1,27 +1,34 @@
-<?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('laboratoria', function (Blueprint $table) {
-            $table->id();
+        Schema::create('laboratorium', function (Blueprint $table) {
+
+            $table->string('no_lab')->primary();
+
+            $table->string('nama_lab');
+
+            $table->tinyInteger('level_lab');
+
+            $table->integer('jumlah_pc');
+
+            $table->string('no_induk_admin');
+
             $table->timestamps();
+
+            $table->foreign('no_induk_admin')
+                ->references('no_induk')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('laboratoria');
+        Schema::dropIfExists('laboratorium');
     }
 };
