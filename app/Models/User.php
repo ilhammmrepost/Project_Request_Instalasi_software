@@ -1,53 +1,80 @@
+<?php
+
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $primaryKey = 'no_induk';
+    protected $table = 'users';
 
-    public $incrementing = false;
+    protected $primaryKey = 'id';
 
-    protected $keyType = 'string';
+    public $incrementing = true;
+
+    protected $keyType = 'int';
 
     protected $fillable = [
         'no_induk',
-        'nama',
+        'name',
         'email',
         'password',
         'no_hp',
-        'role'
+        'role',
+        'email_verified_at',
     ];
 
-    protected $hidden =
+    protected $hidden =[
         'password',
-        'remember_token'
+        'remember_token',
     ];
 
-    // DOSEN
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name;
+    }
+
+
     public function pengajuanDosen()
     {
-        return $this->hasMany(Pengajuan::class, 'no_induk');
+        return $this->hasMany(Pengajuan::class, 'no_induk', 'no_induk');
     }
 
-    // ADMIN YANG DITUGASKAN
+
     public function assignedPengajuan()
     {
-        return $this->hasMany(Pengajuan::class, 'assigned_to');
+        return $this->hasMany(Pengajuan::class, 'assigned_to', 'no_induk');
     }
 
-    // ADMIN PENANGGUNG JAWAB LAB
+
     public function laboratorium()
     {
-        return $this->hasOne(Laboratorium::class, 'admin_no_induk');
+        return $this->hasOne(Laboratorium::class, 'admin_no_induk', 'no_induk');
     }
 
-    // ADMIN YANG INSTALL SOFTWARE
     public function instalasi()
     {
-        return $this->hasMany(Instalasi::class, 'installed_by');
+        return $this->hasMany(Instalasi::class, 'installed_by', 'no_induk');
     }
 }
