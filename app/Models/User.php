@@ -7,6 +7,9 @@ use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Pengajuan;
+use App\Models\Instalasi;
+use App\Models\Laboratorium;
 
 class User extends Authenticatable implements FilamentUser
 {
