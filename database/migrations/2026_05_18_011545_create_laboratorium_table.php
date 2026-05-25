@@ -1,3 +1,5 @@
+<?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,7 +10,9 @@ return new class extends Migration
     {
         Schema::create('laboratorium', function (Blueprint $table) {
 
-            $table->string('no_lab')->primary();
+            $table->id();
+
+            $table->string('no_lab')->unique();
 
             $table->string('nama_lab');
 
