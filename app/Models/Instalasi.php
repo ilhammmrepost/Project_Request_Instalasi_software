@@ -34,6 +34,6 @@ class Instalasi extends Model
 
     public function admin()
     {
-        return $this->belongsTo(User::class, 'diinstall_oleh');
+        return $this->belongsTo(User::class, 'diinstal_oleh');
     }
 }
