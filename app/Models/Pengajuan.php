@@ -31,21 +31,21 @@ class Pengajuan extends Model
 
     public function dosen()
     {
-        return $this->belongsTo(User::class, 'no_induk');
+        return $this->belongsTo(User::class, 'no_induk', 'no_induk');
     }
 
     public function laboratorium()
     {
-        return $this->belongsTo(Laboratorium::class, 'no_lab');
+        return $this->belongsTo(Laboratorium::class, 'no_lab', 'no_lab');
     }
 
     public function software()
     {
-        return $this->belongsTo(Software::class, 'id_software');
+        return $this->belongsTo(Software::class, 'id_software', 'id_software');
     }
 
     public function admin()
     {
-        return $this->belongsTo(User::class, 'tugas_admin');
+        return $this->belongsTo(User::class, 'tugas_admin', 'no_induk');
     }
 }
