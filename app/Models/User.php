@@ -78,6 +78,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function instalasi()
     {
-        return $this->hasMany(Instalasi::class, 'installed_by', 'no_induk');
+        return $this->hasMany(Instalasi::class, 'diinstal_oleh', 'no_induk');
     }
 }
