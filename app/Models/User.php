@@ -67,7 +67,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function assignedPengajuan()
     {
-        return $this->hasMany(Pengajuan::class, 'assigned_to', 'no_induk');
+        return $this->hasMany(Pengajuan::class, 'tugas_admin', 'no_induk');
     }
 
 
