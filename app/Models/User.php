@@ -73,7 +73,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function laboratorium()
     {
-        return $this->hasOne(Laboratorium::class, 'admin_no_induk', 'no_induk');
+        return $this->hasOne(Laboratorium::class, 'no_induk_admin', 'no_induk');
     }
 
     public function instalasi()
