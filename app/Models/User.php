@@ -50,7 +50,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return in_array($this->role, ['admin', 'supervisor']);
     }
 
     public function getFilamentName(): string
@@ -67,17 +67,17 @@ class User extends Authenticatable implements FilamentUser
 
     public function assignedPengajuan()
     {
-        return $this->hasMany(Pengajuan::class, 'assigned_to', 'no_induk');
+        return $this->hasMany(Pengajuan::class, 'tugas_admin', 'no_induk');
     }
 
 
     public function laboratorium()
     {
-        return $this->hasOne(Laboratorium::class, 'admin_no_induk', 'no_induk');
+        return $this->hasOne(Laboratorium::class, 'no_induk_admin', 'no_induk');
     }
 
     public function instalasi()
     {
-        return $this->hasMany(Instalasi::class, 'installed_by', 'no_induk');
+        return $this->hasMany(Instalasi::class, 'diinstal_oleh', 'no_induk');
     }
 }
