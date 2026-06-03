@@ -24,6 +24,8 @@ class Pengajuan extends Model
         'kelompok_matkul',
         'status_persetujuan',
         'status_progress',
+        'catatan_progress',
+        'kendala',
         'tugas_admin',
         'tgl_penugasan',
         'dokumentasi_url',
