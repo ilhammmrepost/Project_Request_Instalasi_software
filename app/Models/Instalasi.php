@@ -19,6 +19,7 @@ class Instalasi extends Model
         'id_software',
         'no_lab',
         'diinstal_oleh',
+        'tgl_instalasi',
         'status_lisensi',
         'tgl_aktif',
         'tgl_expired'
