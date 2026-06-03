@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Software;
+use App\Models\User;
 
 class Instalasi extends Model
 {
@@ -24,16 +25,16 @@ class Instalasi extends Model
 
     public function software()
     {
-        return $this->belongsTo(Software::class, 'id_software');
+        return $this->belongsTo(Software::class, 'id_software', 'id_software');
     }
 
     public function laboratorium()
     {
-        return $this->belongsTo(Laboratorium::class, 'no_lab');
+        return $this->belongsTo(Laboratorium::class, 'no_lab', 'no_lab');
     }
 
     public function admin()
     {
-        return $this->belongsTo(User::class, 'diinstal_oleh');
+        return $this->belongsTo(User::class, 'diinstal_oleh', 'no_induk');
     }
 }
